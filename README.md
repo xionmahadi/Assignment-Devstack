@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🧱 Dev Stack
 ---
 A responsive web app where developers can explore technologies and build their own personal tech stack.
@@ -280,3 +281,6 @@ This keeps the project easier to read and manage.
 📄 **License & Attribution**
 This project was built based on the DevStack Figma Design and the given assignment requirements.
 Made with React, Tailwind CSS, and JavaScript.
+=======
+# Assignment-Devstack
+>>>>>>> 5a8415bd96abb360687dd71fdcd5395b4831c340
