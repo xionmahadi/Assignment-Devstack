@@ -16,19 +16,29 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Mobile Layout (Left: Hamburger, Center: Logo, Right: Actions) */}
+          {/* Mobile Left: Single Hamburger Menu Button */}
           <div className="flex items-center md:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-700 hover:text-black focus:outline-none"
+              className="p-2 text-slate-800 hover:text-black focus:outline-none flex items-center justify-center"
               aria-label="Toggle Navigation Menu"
             >
-              <img src="/ui/hamburger.png" alt="Menu" className="w-5 h-5" onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }} />
-              {/* Fallback SVG Hamburger if image fails */}
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <img
+                src="/ui/hamburger.png"
+                alt="Menu"
+                className="w-5 h-4 object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                }}
+              />
+              <svg
+                className="w-6 h-6 hidden"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
@@ -40,7 +50,7 @@ export default function Navbar() {
                 DS
               </div>
               <span className="text-xl font-bold tracking-tight">
-                <span className="text-slate-900">Dev </span>
+                <span className="text-slate-900">Dev</span>
                 <span className="text-gradient">Stack</span>
               </span>
             </a>
@@ -65,10 +75,10 @@ export default function Navbar() {
 
           {/* Right Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-4">
-            <button className="text-sm font-semibold text-slate-700 hover:text-slate-900 px-3 py-2 transition-colors">
+            <button className="text-sm font-semibold text-slate-700 hover:text-slate-900 px-2 sm:px-3 py-2 transition-colors">
               Sign In
             </button>
-            <button className="btn-gradient text-sm font-semibold px-5 py-2.5 rounded-full shadow-sm">
+            <button className="btn-gradient text-sm font-semibold px-4 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-sm whitespace-nowrap">
               Sign Up
             </button>
           </div>
