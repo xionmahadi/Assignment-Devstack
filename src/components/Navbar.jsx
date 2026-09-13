@@ -1,25 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Layers, Sparkles, ChevronRight, User, LogIn } from 'lucide-react';
+import React, { useState } from 'react';
 
-export default function Navbar({ onOpenSignIn, onOpenSignUp }) {
-  const [isScrolled, setIsScrolled] = useState(false);
+export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState('Home');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
+    { name: 'Home', href: '#home', active: true },
     { name: 'Technologies', href: '#technologies' },
     { name: 'Projects', href: '#projects' },
     { name: 'About', href: '#about' },
@@ -27,50 +12,50 @@ export default function Navbar({ onOpenSignIn, onOpenSignUp }) {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'glass-nav shadow-lg' : 'bg-transparent border-b border-white/5'
-    }`}>
+    <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Mobile Left: Hamburger Icon */}
+          {/* Mobile Layout (Left: Hamburger, Center: Logo, Right: Actions) */}
           <div className="flex items-center md:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none transition-colors"
+              className="p-2 text-slate-700 hover:text-black focus:outline-none"
               aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <img src="/ui/hamburger.png" alt="Menu" className="w-5 h-5" onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }} />
+              {/* Fallback SVG Hamburger if image fails */}
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
             </button>
           </div>
 
-          {/* Brand Logo */}
-          <div className="flex items-center gap-3">
-            <a href="#home" className="flex items-center gap-2.5 group">
-              <div className="w-10 h-10 rounded-xl bg-brand-gradient flex items-center justify-center shadow-brand-glow group-hover:scale-105 transition-transform duration-300">
-                <Layers className="w-5 h-5 text-white" />
+          {/* Brand Logo (Desktop & Mobile) */}
+          <div className="flex items-center gap-2">
+            <a href="#home" className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-brand-gradient flex items-center justify-center text-white font-extrabold text-xs tracking-tight shadow-sm">
+                DS
               </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-bold font-['Outfit'] tracking-tight flex items-center gap-1">
-                  <span className="text-white">Dev</span>
-                  <span className="text-gradient">Stack</span>
-                </span>
-                <span className="text-[10px] uppercase font-semibold tracking-widest text-gray-400">Architecture Hub</span>
-              </div>
+              <span className="text-xl font-bold tracking-tight">
+                <span className="text-slate-900">Dev </span>
+                <span className="text-gradient">Stack</span>
+              </span>
             </a>
           </div>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+          {/* Desktop Center: Navigation Links */}
+          <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                onClick={() => setActiveLink(link.name)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeLink === link.name
-                    ? 'text-white bg-white/10 shadow-sm'
-                    : 'text-gray-300 hover:text-white hover:bg-white/5'
+                className={`text-sm font-medium transition-colors ${
+                  link.active
+                    ? 'text-[#F12067] font-semibold'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 {link.name}
@@ -78,70 +63,37 @@ export default function Navbar({ onOpenSignIn, onOpenSignUp }) {
             ))}
           </nav>
 
-          {/* Action Buttons: Sign In & Sign Up */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <button
-              onClick={onOpenSignIn}
-              className="px-3.5 sm:px-4 py-2 text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors flex items-center gap-1.5"
-            >
-              <LogIn className="w-4 h-4 hidden sm:inline" />
-              <span>Sign In</span>
+          {/* Right Action Buttons */}
+          <div className="flex items-center gap-2 sm:gap-4">
+            <button className="text-sm font-semibold text-slate-700 hover:text-slate-900 px-3 py-2 transition-colors">
+              Sign In
             </button>
-            <button
-              onClick={onOpenSignUp}
-              className="btn-gradient px-4 sm:px-5 py-2 text-sm font-semibold rounded-full flex items-center gap-1.5 shadow-brand-glow"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Sign Up</span>
+            <button className="btn-gradient text-sm font-semibold px-5 py-2.5 rounded-full shadow-sm">
+              Sign Up
             </button>
           </div>
 
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden glass-panel border-t border-white/10 px-4 pt-3 pb-6 space-y-2 animate-fadeIn">
-          <div className="grid gap-1">
+        <div className="md:hidden bg-white border-t border-gray-100 px-4 pt-3 pb-6 space-y-2 shadow-lg">
+          <div className="flex flex-col space-y-2">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                onClick={() => {
-                  setActiveLink(link.name);
-                  setMobileMenuOpen(false);
-                }}
-                className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium transition-all ${
-                  activeLink === link.name
-                    ? 'text-white bg-brand-gradient/20 border border-brand-pink/30'
-                    : 'text-gray-300 hover:text-white hover:bg-white/5'
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-3 py-2 rounded-lg text-base font-medium ${
+                  link.active
+                    ? 'text-[#F12067] bg-pink-50 font-semibold'
+                    : 'text-slate-700 hover:bg-slate-50'
                 }`}
               >
-                <span>{link.name}</span>
-                <ChevronRight className="w-4 h-4 text-gray-500" />
+                {link.name}
               </a>
             ))}
-          </div>
-
-          <div className="pt-4 border-t border-white/10 flex flex-col gap-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenSignIn();
-              }}
-              className="w-full py-2.5 px-4 text-center rounded-xl font-medium text-gray-200 bg-white/5 hover:bg-white/10 transition-colors"
-            >
-              Sign In to Your Account
-            </button>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenSignUp();
-              }}
-              className="w-full py-2.5 px-4 text-center rounded-xl font-semibold btn-gradient"
-            >
-              Create Free Account
-            </button>
           </div>
         </div>
       )}

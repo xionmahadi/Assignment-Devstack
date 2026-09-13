@@ -3,55 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --brand-gradient: linear-gradient(135deg, #FF5E3A 0%, #FF2A6D 50%, #8B5CF6 100%);
-  --brand-gradient-hover: linear-gradient(135deg, #FF6F4E 0%, #FF3D7C 50%, #9D71F8 100%);
-  --brand-gradient-glow: 0 0 30px rgba(255, 42, 109, 0.4);
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0B0F19;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #1F2937;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #374151;
-}
-
-/* Glassmorphic utilities */
-.glass-panel {
-  background: rgba(17, 24, 39, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-nav {
-  background: rgba(11, 15, 25, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-card {
-  background: #111827;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-card:hover {
-  border-color: rgba(255, 42, 109, 0.4);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px -10px rgba(255, 42, 109, 0.15);
+  --brand-gradient: linear-gradient(135deg, #FF5429 0%, #F12067 50%, #9033FA 100%);
 }
 
 /* Gradient Text */
@@ -65,31 +17,13 @@
 .btn-gradient {
   background: var(--brand-gradient);
   color: white;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  transition: opacity 0.2s ease, transform 0.1s ease;
 }
 
 .btn-gradient:hover {
-  background: var(--brand-gradient-hover);
-  box-shadow: 0 0 20px rgba(255, 42, 109, 0.4);
-  transform: translateY(-1px);
+  opacity: 0.95;
 }
 
 .btn-gradient:active {
-  transform: translateY(1px);
-}
-
-/* React Toastify Customization */
-.Toastify__toast-theme--dark {
-  background: #111827 !important;
-  color: #F3F4F6 !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
-  backdrop-filter: blur(12px) !important;
-}
-
-.Toastify__progress-bar-theme--dark {
-  background: var(--brand-gradient) !important;
+  transform: scale(0.98);
 }
