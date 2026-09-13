@@ -29,8 +29,13 @@ export default function TechnologyCard({ technology, isSelected, onAddToStack })
   };
 
   return (
-    <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
-      
+    <div
+      className={`bg-white rounded-2xl p-6 transition-all flex flex-col justify-between ${
+        isSelected
+          ? 'border-2 border-[#F12067] shadow-md ring-1 ring-[#F12067]/20'
+          : 'border border-slate-100 shadow-sm hover:shadow-md'
+      }`}
+    >
       <div>
         {/* Top Row: Icon & Badge */}
         <div className="flex items-start justify-between gap-2">
