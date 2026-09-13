@@ -1,15 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState('Home');
 
   const navLinks = [
-    { name: 'Home', href: '#home', active: true },
+    { name: 'Home', href: '#home' },
     { name: 'Technologies', href: '#technologies' },
     { name: 'Projects', href: '#projects' },
     { name: 'About', href: '#about' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  // Sync active link with URL hash if present
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      const matchingLink = navLinks.find((link) => link.href === hash);
+      if (matchingLink) {
+        setActiveLink(matchingLink.name);
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleLinkClick = (name) => {
+    setActiveLink(name);
+    setMobileMenuOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
@@ -45,7 +66,11 @@ export default function Navbar() {
 
           {/* Brand Logo (Desktop & Mobile) */}
           <div className="flex items-center gap-2">
-            <a href="#home" className="flex items-center gap-2">
+            <a
+              href="#home"
+              onClick={() => handleLinkClick('Home')}
+              className="flex items-center gap-2"
+            >
               <div className="w-8 h-8 rounded-lg bg-brand-gradient flex items-center justify-center text-white font-extrabold text-xs tracking-tight shadow-sm">
                 DS
               </div>
@@ -58,19 +83,23 @@ export default function Navbar() {
 
           {/* Desktop Center: Navigation Links */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`text-sm font-medium transition-colors ${
-                  link.active
-                    ? 'text-[#F12067] font-semibold'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeLink === link.name;
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => handleLinkClick(link.name)}
+                  className={`text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'text-[#F12067] font-semibold'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  {link.name}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right Action Buttons */}
@@ -90,20 +119,23 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 px-4 pt-3 pb-6 space-y-2 shadow-lg">
           <div className="flex flex-col space-y-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`px-3 py-2 rounded-lg text-base font-medium ${
-                  link.active
-                    ? 'text-[#F12067] bg-pink-50 font-semibold'
-                    : 'text-slate-700 hover:bg-slate-50'
-                }`}
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeLink === link.name;
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => handleLinkClick(link.name)}
+                  className={`px-3 py-2 rounded-lg text-base font-medium transition-colors ${
+                    isActive
+                      ? 'text-[#F12067] bg-pink-50 font-semibold'
+                      : 'text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  {link.name}
+                </a>
+              );
+            })}
           </div>
         </div>
       )}
