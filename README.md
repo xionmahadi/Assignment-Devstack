@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🧱 Dev Stack
 ---
 A responsive web app where developers can explore technologies and build their own personal tech stack.
@@ -39,7 +38,7 @@ JSON - Used to store the technology data locally in src/data/technologies.json.
 **1. Clone the Repository**
 
 ```
-git clone https://github.com/ProgrammingHero1/B14-A05-DevStack.git
+git clone https://github.com/xionmahadi/Assignment-Devstack.git
 ```
 
 **2. Install Dependencies**
